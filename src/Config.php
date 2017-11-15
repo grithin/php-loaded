@@ -67,6 +67,3 @@ class Config{
 		return null;
 	}
 }
-function Config($key){
-	return Config::get($key);
-}
