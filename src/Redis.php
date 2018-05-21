@@ -1,6 +1,24 @@
 <?
 namespace Grithin;
 
+/*
+-	to cache complex data, json_encode is used
+-	since the result of json_encode is a string, determing that a cached value is a so encoded value would require one of:
+	-	parsing the string
+	-	special key naming
+	-	encode and decode all values
+-	since
+	-	parsing the string may result in false positives (project as saving a string that happened to be json, but was not intended to be returned from cache as a complex data structure),
+	-	and since special key naming would require special handling by the implementing project,
+	I've chosen to encode and decode all values
+*/
+
+/* Ex
+Redis::singleton(['127.0.0.1',6379, 1, NULL, 100]);
+Redis::get('test');
+Redis::get('test', 'bob');
+*/
+
 class Redis{
 	use \Grithin\SDLL;
 
@@ -44,6 +62,27 @@ class Redis{
 	}
 	protected function get($name){
 		return json_decode($this->under->get($this->prefix.$name), true);
+	}
+	# find a free key and optionally reserve it
+	# Ex Redis::random_free(['set'=>false]);
+	/*	params
+		options:
+			set: < a false value, wherein it wont be set, or a non-false value, wherein the cache value at key will be set to that value >
+
+	*/
+	protected function random_free($options=[]){
+		$options = array_merge(['set'=>true], $options);
+		for($i=0;$i<1000;$i++){
+			$key = 'random-'.\Grithin\Strings::random(50); # numeric set space of 62^50 - collisions should be rare
+			$value = $this->get($key);
+			if(!$value){
+				if($options['set']){
+					$this->set($key, $options['set']);
+				}
+				return $key;
+			}
+		}
+		throw new \Exception('A 62^50 collision space collided 1000 times.  Play the lotto');
 	}
 	/*
 	@param	options	< expire offset >
