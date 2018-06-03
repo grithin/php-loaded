@@ -15,8 +15,9 @@ $tmp_file->write('test');
 
 class TempFile {
 	public function __construct($options=[]){
-		$this->options = array_merge(['path'=>'/dev/shm', 'prefix'=>'TempFile-', 'open'=>'r+'], $options);
-		$this->filepath = tempnam($this->options['path'], $this->options['prefix']);
+		$this->options = array_merge(['directory'=>'/dev/shm', 'prefix'=>'TempFile-', 'open'=>'r+'], $options);
+		$this->path = tempnam($this->options['directory'], $this->options['prefix']);
+		$this->filepath = &$this->path;
 		if($this->options['open']){
 			$this->open($this->options['open']);
 		}
@@ -54,5 +55,10 @@ class TempFile {
 			$this->close();
 			unlink($this->filepath);
 		}
+	}
+	public function read_all(){
+		clearstatcache(true, $this->filepath);
+		$this->rewind();
+		return $this->read($this->getSize());
 	}
 }
