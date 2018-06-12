@@ -42,6 +42,9 @@ class TempFile {
 		}
 		return $this;
 	}
+	public function reopen(){
+		$this->File = new \SplFileObject($this->filepath, $this->mode);
+	}
 	public function close(){
 		if($this->File){
 			unset($this->File);
@@ -58,6 +61,7 @@ class TempFile {
 	}
 	public function read_all(){
 		clearstatcache(true, $this->filepath);
+		$this->reopen();
 		$this->rewind();
 		return $this->read($this->getSize());
 	}
