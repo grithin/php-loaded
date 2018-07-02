@@ -43,14 +43,6 @@ class Redis{
 			$this->under->select($this->options['db_id']);
 		}
 	}
-	function __call($method, $params){
-		if(method_exists($this->under, $method)){
-			$params[0] = $this->prefix.$params[0];
-			return call_user_func_array([$this->under, $method], $params);
-		}
-		throw new ExceptionMissingMethod($method);
-
-	}
 	/// sees if cache is working
 	protected function check(){
 		$this->under->set('on',1);
