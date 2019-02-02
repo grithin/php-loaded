@@ -46,6 +46,7 @@ class Config{
 	}
 	protected $loaded_path_vars = [];
 	protected function get($key){
+		# prefixed, deal with prefix
 		if(strstr($key, ':') !== false){
 			list($path, $key) = explode(':', $key, 2);
 			if(!$path){
@@ -58,12 +59,15 @@ class Config{
 				$this->load($path);
 			}
 		}
+		# either non-prefixed or prefix has been dealt with
 		if(!array_key_exists($key, $_ENV)){
-			$_ENV[$key] = $this->options['fallback']($key);
+			$_ENV[$key] = $this->options['fallback']($key, $path);
 		}
 		return $_ENV[$key];
 	}
-	public function getter_fallback($key){
-		return null;
+	# default to throwing an exception if the key is missing
+	public function getter_fallback($key, $prefix=''){
+		$prefix_message = $prefix ? ' with prefix "'.$prefix.'"' : '';
+		throw new \Exception('Missing Config key "'.$key.'"'.$prefix_message);
 	}
 }
