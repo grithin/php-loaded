@@ -65,6 +65,16 @@ class Config{
 		}
 		return $_ENV[$key];
 	}
+
+	# like `get`, but, in case the fallback throws an exception, catch, ignore and return null
+	protected function try($key){
+		try{
+			return $this->get($key);
+		}catch(\Exception $e){
+			return null;
+		}
+	}
+
 	# default to throwing an exception if the key is missing
 	public function getter_fallback($key, $prefix=''){
 		$prefix_message = $prefix ? ' with prefix "'.$prefix.'"' : '';
