@@ -8,6 +8,7 @@ Get config vars with optional config file path and fallback getter
 
 class Config{
 	use \Grithin\SingletonDefault;
+	public $config = [];
 	function __construct($options=[]){
 		#+ defaults {
 		if(!$options['main']){
@@ -41,7 +42,9 @@ class Config{
 		$file = $this->options['folder'].$path.'.php';
 
 		if(is_file($file)){
-			require_once($file);
+			$config = require_once($file);
+			$this->config = array_merge($this->config, $config);
+			return $config;
 		}
 	}
 	protected $loaded_path_vars = [];
@@ -60,10 +63,10 @@ class Config{
 			}
 		}
 		# either non-prefixed or prefix has been dealt with
-		if(!array_key_exists($key, $_ENV)){
-			$_ENV[$key] = $this->options['fallback']($key, $path);
+		if(!array_key_exists($key, $this->config)){
+			$this->config[$key] = $this->options['fallback']($key, $path);
 		}
-		return $_ENV[$key];
+		return $this->config[$key];
 	}
 
 	# like `get`, but, in case the fallback throws an exception, catch, ignore and return null
