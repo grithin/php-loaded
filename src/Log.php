@@ -18,8 +18,15 @@ class Log{
 	protected $mode;
 	protected $fh = false;
 	use SDLL; # so as only to create the log file when it is used
+	/*	params
+	< options >:
+		< format > < format log should take.  'json' or 'pretty'.  >
+		< log_folder_create > < whether to create the log folder if it does not exist >
+	*/
 	public function __construct($options=[]){
-		$defaults = ['format'=>'pretty'];
+		$defaults = [
+			'format'=>'pretty',
+			'log_folder_create' => true];
 		$this->options = array_merge($defaults, (array)$options);
 	}
 
@@ -27,6 +34,9 @@ class Log{
 		if(!$this->options['file']){
 			if(!$this->options['folder']){
 				$this->options['folder'] = Config::root_folder().'log/';
+			}
+			if(!is_dir($this->options['folder']) && $this->options['log_folder_create']){
+				mkdir($this->options['folder']);
 			}
 			$this->options['file'] = $this->options['folder'].date('Ymd').'.log';
 		}
