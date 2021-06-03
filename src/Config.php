@@ -11,13 +11,13 @@ class Config{
 	public $config = [];
 	function __construct($options=[]){
 		#+ defaults {
-		if(!$options['main']){
+		if(empty($options['main'])){
 			$options['main'] = 'main';
 		}
-		if(!$options['folder']){
+		if(empty($options['folder'])){
 			$options['folder'] = self::root_folder().'config/';
 		}
-		if(!$options['fallback']){
+		if(empty($options['fallback'])){
 			$options['fallback'] = [$this, 'getter_fallback'];
 		}
 

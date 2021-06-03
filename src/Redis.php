@@ -159,7 +159,7 @@ class Redis{
 			if(time() > $recache['next_update']){ # need to update
 				# do the update if ...
 				if(
-					!$recache['updating'] # not currently updating
+					empty($recache['updating']) # not currently updating
 				){
 					return $this->recache_set($name, $value_function, $options);	}	}
 
