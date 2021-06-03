@@ -30,7 +30,9 @@ class Redis{
 	*/
 	function __construct($connection_info, $options=[]){
 		$this->connection_info = $connection_info;
-		$this->options = $options;
+
+		$defautls = ['prefix'=>''];
+		$this->options = array_merge($defautls, $options);
 	}
 
 	function load(){
@@ -39,7 +41,7 @@ class Redis{
 
 		$return = call_user_func_array([$this->under,'connect'],$this->connection_info);
 
-		if($options['db_id']){
+		if(!empty($this->options['db_id'])){
 			$this->under->select($this->options['db_id']);
 		}
 	}

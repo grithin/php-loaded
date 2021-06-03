@@ -34,7 +34,7 @@ class Config{
 	}
 	protected $loaded = [];
 	protected function load($path){
-		if($this->loaded[$path]){ # in case multiple keys are within same file, prevent multiple is_file checks if non-existent
+		if(isset($this->loaded[$path])){ # in case multiple keys are within same file, prevent multiple is_file checks if non-existent
 			return;
 		}
 		$this->loaded[$path] = true;

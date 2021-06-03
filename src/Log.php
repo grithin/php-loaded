@@ -31,8 +31,8 @@ class Log{
 	}
 
 	protected function load(){
-		if(!$this->options['file']){
-			if(!$this->options['folder']){
+		if(empty($this->options['file'])){
+			if(empty($this->options['folder'])){
 				$this->options['folder'] = Config::root_folder().'log/';
 			}
 			if(!is_dir($this->options['folder']) && $this->options['log_folder_create']){
@@ -49,7 +49,7 @@ class Log{
 		}
 	}
 	protected function open(){
-		if($this->options['size_limit']
+		if(isset($this->options['size_limit'])
 			&& filesize($this->file) > Strings::byteSize($this->options['size_limit'])
 		){
 			Files::write($this->file, ''); #< clear file
