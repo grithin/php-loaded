@@ -94,7 +94,7 @@ class Redis{
 	}
 	/*
 	@param	options	< expire offset >
-	@param	options	< options array >
+	@param	options	< options array > < see https://github.com/phpredis/phpredis#set ; can be an int as the expiration offset, or an array of options >
 	*/
 	protected function set($name, $data, $options = null){
 		$name = $this->prefix.$name;
