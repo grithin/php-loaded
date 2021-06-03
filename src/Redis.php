@@ -86,7 +86,7 @@ class Redis{
 			$key = 'random-'.\Grithin\Strings::random(50); # numeric set space of 62^50 - collisions should be rare
 			$value = $this->get($key);
 			if(!$value){
-				if($options['set']){
+				if(!empty($options['set'])){
 					$this->set($key, $options['set']);
 				}
 				return $key;
