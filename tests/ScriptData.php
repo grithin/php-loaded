@@ -1,4 +1,4 @@
-<?
+<?php
 # run with `phpunit ScriptData.php`
 
 require __DIR__.'/loader.php';

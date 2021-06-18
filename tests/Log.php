@@ -1,4 +1,4 @@
-<?
+<?php
 # run with `phpunit Log.php`
 
 require __DIR__.'/loader.php';

@@ -1,4 +1,4 @@
-<?
+<?php
 # run with `phpunit PUS_Redis.php`
 # PUS_ = PHP Unit Sucks (b/c it appears there's an internal override prevent use of `phpunit Redis.php`)
 
