@@ -7,7 +7,7 @@ Get config vars with optional config file path and fallback getter
 */
 
 class Config{
-	use \Grithin\SingletonDefault;
+	use \Grithin\Traits\SingletonDefault;
 	public $config = [];
 	function __construct($options=[]){
 		#+ defaults {

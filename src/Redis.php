@@ -20,7 +20,7 @@ Redis::get('test', 'bob');
 */
 
 class Redis{
-	use \Grithin\SDLL;
+	use \Grithin\Traits\SDLL;
 
 	/* params
 		< connection_info > : ['127.0.0.1',6379, 1, NULL, 100]

@@ -8,7 +8,7 @@ Basic logging with format option and size limit option
 use \Grithin\Strings;
 use \Grithin\Config;
 use \Grithin\Files;
-use \Grithin\SDLL;
+use \Grithin\Traits\SDLL;
 use \Grithin\Tool;
 use \Grithin\Debug;
 

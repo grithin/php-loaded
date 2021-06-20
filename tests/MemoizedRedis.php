@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 use \Grithin\Debug;
 use \Grithin\Time;
 use \Grithin\Arrays;
-use \Grithin\VariedParameter;
+use \Grithin\Traits\VariedParameter;
 use \Grithin\MissingValue;
 
 
@@ -17,7 +17,7 @@ use \Grithin\MissingValue;
 
 
 class InstanceTest{
-	use \Grithin\MemoizedRedis;
+	use \Grithin\Traits\MemoizedRedis;
 	public function test($x){
 		if($this->caller_requested_memoized()){
 			return $this->memoized_bottom($x);
