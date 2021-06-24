@@ -18,7 +18,7 @@ class Log{
 	protected $mode;
 	protected $fh = false;
 	use SDLL; # so as only to create the log file when it is used
-	/*	params
+	/**	params
 	< options >:
 		< format > < format log should take.  'json' or 'pretty'.  >
 		< log_folder_create > < whether to create the log folder if it does not exist >
@@ -102,7 +102,7 @@ class Log{
 			fclose($this->fh);
 		}
 	}
-	# because this is a SingletonDefault, have to account for the two ways of calling a method in determining the caller
+	/** because this is a SingletonDefault, have to account for the two ways of calling a method in determining the caller */
 	private function caller(){
 		$trace = debug_backtrace(null,7);
 		if($trace[6]['function'] == '__callStatic' && $trace[6]['class'] = 'Grithin\\Log'){

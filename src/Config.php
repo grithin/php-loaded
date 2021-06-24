@@ -69,7 +69,7 @@ class Config{
 		return $this->config[$key];
 	}
 
-	# like `get`, but, in case the fallback throws an exception, catch, ignore and return null
+	/** like `get`, but, in case the fallback throws an exception, catch, ignore and return null */
 	protected function try($key){
 		try{
 			return $this->get($key);
@@ -78,7 +78,7 @@ class Config{
 		}
 	}
 
-	# default to throwing an exception if the key is missing
+	/** default to throwing an exception if the key is missing */
 	public function getter_fallback($key, $prefix=''){
 		$prefix_message = $prefix ? ' with prefix "'.$prefix.'"' : '';
 		throw new \Exception('Missing Config key "'.$key.'"'.$prefix_message);

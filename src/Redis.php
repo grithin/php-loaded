@@ -22,7 +22,7 @@ Redis::get('test', 'bob');
 class Redis{
 	use \Grithin\Traits\SDLL;
 
-	/* params
+	/** params
 		< connection_info > : ['127.0.0.1',6379, 1, NULL, 100]
 		< options >
 			< prefix > < used to prefix all keys >
@@ -53,7 +53,7 @@ class Redis{
 		throw new ExceptionMissingMethod($method);
 
 	}
-	/// sees if cache is working
+	/** sees if cache is working */
 	protected function check(){
 		$this->under->set('on',1);
 		if(!$this->under->get('on')){
@@ -73,9 +73,9 @@ class Redis{
 	protected function get($name){
 		return json_decode($this->under->get($this->prefix.$name), true);
 	}
-	# find a free key and optionally reserve it
-	# Ex Redis::random_free(['set'=>false]);
-	/*	params
+	/** find a free key and optionally reserve it */
+	/** Ex Redis::random_free(['set'=>false]); */
+	/**	params
 		options:
 			set: < a false value, wherein it wont be set, or a non-false value, wherein the cache value at key will be set to that value >
 
@@ -94,7 +94,7 @@ class Redis{
 		}
 		throw new \Exception('A 62^50 collision space collided 1000 times.  Play the lotto');
 	}
-	/*
+	/**
 	@param	options	< expire offset >
 	@param	options	< options array > < see https://github.com/phpredis/phpredis#set ; can be an int as the expiration offset, or an array of options >
 	*/
@@ -114,7 +114,7 @@ class Redis{
 		$name = $this->prefix.$name;
 		return $this->under->watch($name);
 	}
-	/*
+	/**
 	@ex
 		this->watch('test')
 		this->sef_if_unchanged('test', 'bob')
@@ -133,7 +133,7 @@ class Redis{
 		return $this->under->unwatch($name);
 	}
 
-	///for getting and potentially updating cache
+	/** for getting and potentially updating cache */
 	/**
 	allows a single client to update a cache while concurrent connections just use the old cache (ie, prevenut multiple updates).  Useful on something like a public index page with computed resources - if 100 people access page after cache expiry, cache is only re-updated once, not 100 times.
 

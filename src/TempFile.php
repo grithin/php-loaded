@@ -39,7 +39,7 @@ class TempFile {
 	}
 	public $File;
 	public $mode;
-	# @note SplFileObject can not be used with functions that take a file handler object.
+	/** @note SplFileObject can not be used with functions that take a file handler object. */
 	public function open($mode){
 		if(!$this->File || $this->mode != $mode){
 			$this->File = new \SplFileObject($this->filepath, $mode);

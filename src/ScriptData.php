@@ -46,7 +46,7 @@ class ScriptData{
 		$storage_base = self::get_scripts_storage_directory();
 		return $storage_base.$filename;
 	}
-	# gets existing, or intiializes data and returns initial data
+	/** gets existing, or intiializes data and returns initial data */
 	function get_or_init($initial_data, $filename=null){
 		$data = self::get($filename);
 		if(!$data){

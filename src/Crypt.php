@@ -3,24 +3,24 @@ namespace Grithin;
 
 /*
 use `defuse/php-encryption` for IV, HMAC symmetric encryptiong:
-	# key generation
+	/** key generation */
 	$key = \Defuse\Crypto\Key::createNewRandomKey()->saveToAsciiSafeString()
 
-	# encrypt
+	/** encrypt */
 	$key = \Defuse\Crypto\Key::loadFromAsciiSafeString($_ENV['payments_encrypt_key']);
 	$encrypted = \Defuse\Crypto\Crypto::encrypt(Tool::json_encode($card_details), $key);
 
-	# decrypt
+	/** decrypt */
 	$key = \Defuse\Crypto\Key::loadFromAsciiSafeString($_ENV['payments_encrypt_key']);
 	\Defuse\Crypto\Crypto::decrypt($encrypted, $key)
 */
 
 class Crypt{
-	/*
+	/**
 	Use combination of assymetric and symmetric encryption to encrypt data of arbitrary size
 	Asymmetric encrypt of symmetric key used to symmetrically encrypt data (since symmetric encryption does not have data size limit like asym)
 	*/
-	/* Testing
+	/** Testing
 	$assert = function($ought, $is){
 		if($ought != $is){
 			throw new Exception('ought is not is : '.\Grithin\Debug::pretty([$ought, $is]));
@@ -91,8 +91,8 @@ class Crypt{
 		return $plaintext;
 	}
 
-	# basic Rijndael encryption (no iv, no hmac, to allow for caching)
-	/* Testing
+	/** basic Rijndael encryption (no iv, no hmac, to allow for caching) */
+	/** Testing
 	$plaintext = 'test123';
 	$encrypted = \Grithin\Crypt::simple_encrypt($plaintext, 'password');
 	$assert($plaintext, \Grithin\Crypt::simple_decrypt($encrypted, 'password'));
@@ -110,7 +110,7 @@ class Crypt{
 
 		return $ciphertext;
 	}
-	# basic Rijndael decryption (no iv)
+	/** basic Rijndael decryption (no iv) */
 	function simple_decrypt($message, $key){
 		$rij = new \phpseclib\Crypt\Rijndael();
 
